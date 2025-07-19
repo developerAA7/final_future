@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Future Prediction Form</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('b.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      max-width: 500px;
+      width: 90%;
+    }
+
+    h1 {
+      text-align: center;
+      color: #fff;
+      margin-bottom: 25px;
+    }
+
+    .label-box {
+      background-color: #000;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 14px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .form-group { margin-bottom: 20px; }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      font-size: 15px;
+      border-radius: 8px;
+      border: 2px solid #00bfa5;
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    input::placeholder { color: #555; }
+
+    .radio-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 8px;
+    }
+
+    .radio-group label {
+      color: #fff;
+      font-weight: bold;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      color: white;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .hidden { display: none; }
+
+    .add-kid {
+      background-color: #4CAF50;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔮 Enter Your Details</h1>
+    <form action="submit.php" method="POST">
+      <div class="form-group">
+        <label class="label-box" for="name">NAME:</label>
+        <input type="text" name="name" id="name" placeholder="Enter your name" required>
+      </div>
+
+      <div class="form-group">
+        <label class="label-box" for="mobile">MOBILE NUMBER:</label>
+        <input type="tel" name="mobile" id="mobile" placeholder="Enter your mobile number" pattern="[0-9]{10}" required>
+      </div>
+
+      <div class="form-group">
+        <label class="label-box" for="rasi">ராசி (RASI):</label>
+        <select name="rasi" id="rasi" required>
+          <option value="">Select</option>
+          <option value="மேஷம்">மேஷம்</option>
+          <option value="ரிஷபம்">ரிஷபம்</option>
+          <option value="மிதுனம்">மிதுனம்</option>
+          <option value="கடகம்">கடகம்</option>
+          <option value="சிம்மம்">சிம்மம்</option>
+          <option value="கன்னி">கன்னி</option>
+          <option value="துலாம்">துலாம்</option>
+          <option value="விருச்சிகம்">விருச்சிகம்</option>
+          <option value="தனுசு">தனுசு</option>
+          <option value="மகரம்">மகரம்</option>
+          <option value="கும்பம்">கும்பம்</option>
+          <option value="மீனம்">மீனம்</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="label-box" for="natchathiram">நட்சத்திரம் (NAKSHATRAM):</label>
+        <select name="natchathiram" id="natchathiram" required>
+          <option value="">Select</option>
+          <option value="அஸ்வினி">அஸ்வினி</option>
+          <option value="பரணி">பரணி</option>
+          <option value="கார்த்திகை">கார்த்திகை</option>
+          <option value="ரோகிணி">ரோகிணி</option>
+          <option value="மிருகசீரிடம்">மிருகசீரிடம்</option>
+          <option value="திருவாதிரை">திருவாதிரை</option>
+          <option value="புனர்பூசம்">புனர்பூசம்</option>
+          <option value="பூசம்">பூசம்</option>
+          <option value="மகம்">மகம்</option>
+          <option value="பூரம்">பூரம்</option>
+          <option value="ஹஸ்தம்">ஹஸ்தம்</option>
+          <option value="சித்திரை">சித்திரை</option>
+          <option value="விசாகம்">விசாகம்</option>
+          <option value="அனுராதா">அனுராதா</option>
+          <option value="மூலம்">மூலம்</option>
+          <option value="திருவோணம்">திருவோணம்</option>
+          <option value="ரேவதி">ரேவதி</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="label-box">Do you have kids?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="has_kids" value="yes" onclick="toggleKids(true)"> Yes</label>
+          <label><input type="radio" name="has_kids" value="no" onclick="toggleKids(false)" checked> No</label>
+        </div>
+      </div>
+
+      <div id="kidsSection" class="hidden">
+        <div id="kidsContainer"></div>
+        <button type="button" class="add-kid" onclick="addKid()">+ Add Kid</button>
+      </div>
+
+      <button type="submit">🚀 Submit</button>
+    </form>
+  </div>
+
+  <script>
+    let kidCount = 0;
+
+    function toggleKids(show) {
+      const section = document.getElementById('kidsSection');
+      section.classList.toggle('hidden', !show);
+      if (!show) {
+        document.getElementById('kidsContainer').innerHTML = '';
+        kidCount = 0;
+      }
+    }
+
+    function addKid() {
+      kidCount++;
+      const container = document.getElementById('kidsContainer');
+
+      const div = document.createElement('div');
+      div.classList.add('form-group');
+
+      div.innerHTML = `
+        <label class="label-box">Kid ${kidCount} Name:</label>
+        <input type="text" name="kid_name[]" placeholder="Enter kid ${kidCount} name" required>
+        <label class="label-box">Kid ${kidCount} Age:</label>
+        <input type="number" name="kid_age[]" placeholder="Enter kid ${kidCount} age" required>
+      `;
+
+      container.appendChild(div);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <title>🔄 Prediction Countdown</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    .bg-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image: url('logo.jpg');
+      background-repeat: repeat-x;
+      background-size: contain;
+      background-position: top;
+      filter: blur(8px);
+      z-index: -1;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .count-box {
+      background: rgba(0, 0, 0, 0.75);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      z-index: 1;
+      max-width: 90%;
+      width: 400px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    #timer {
+      font-size: 38px;
+      font-weight: bold;
+      color: #ffeb3b;
+      margin-bottom: 20px;
+    }
+
+    .video-ad {
+      margin-top: 20px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    }
+
+    .video-ad video {
+      width: 100%;
+      height: auto;
+      border: none;
+      outline: none;
+    }
+
+    @media (max-width: 480px) {
+      .count-box {
+        padding: 25px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+
+      #timer {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-image"></div>
+
+  <div class="count-box">
+    <h1>🔮 உங்கள் கணிப்பு காட்டப்படும்...</h1>
+    <p>⏳ <span id="timer">22</span> விநாடிகளில் காணலாம்</p>
+
+    <!-- 🎥 Video Ad -->
+    <div class="video-ad">
+      <video id="adVideo" autoplay loop controls playsinline>
+        <source src="ad.mp4" type="video/mp4">
+        உங்கள் உலாவியில் வீடியோ தோன்றவில்லை.
+      </video>
+    </div>
+  </div>
+
+  <!-- ⏱ Countdown Script -->
+  <script>
+    let seconds = 22;
+    const timerElement = document.getElementById("timer");
+    const video = document.getElementById("adVideo");
+
+    // Try autoplay with sound (will work on desktop if permissions allow)
+    video.muted = false;
+
+    // Fallback: On user interaction, play with sound
+    window.addEventListener('click', () => {
+      video.muted = false;
+      video.play().catch(err => {
+        console.warn("Autoplay with sound blocked. User must interact.", err);
+      });
+    }, { once: true });
+
+    const countdown = setInterval(() => {
+      seconds--;
+      timerElement.innerText = seconds;
+
+      if (seconds <= 0) {
+        clearInterval(countdown);
+        window.location.href = "result.html";
+      }
+    }, 1000);
+  </script>
+
+</body>
+</html>
